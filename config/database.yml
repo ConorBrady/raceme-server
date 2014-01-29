@@ -1,12 +1,12 @@
 
 development:
-  adapter: postgresql
-  database: my_database_development
+  adapter: sqlite3
+  database: db/development.sqlite3
   pool: 5
   timeout: 5000
 test:
-  adapter: postgresql
-  database: my_database_test
+  adapter: sqlite3
+  database: db/test.sqlite3
   pool: 5
   timeout: 5000
 
@@ -14,8 +14,8 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  database: d9u4ck96bth0c3
-  username: glhquzvpmvhfcm
-  password: JVWeC9k3ajzOrlleqB6avec1zN
-  host: ec2-50-19-219-235.compute-1.amazonaws.com
+  database: ddrmc803ico0jt
+  username: qolixqyfpbyhqy
+  password: Hl9RGBYQCUNtgoDADdW7u2QtU1
+  host: ec2-79-125-21-70.eu-west-1.compute.amazonaws.com
   port: 5432
