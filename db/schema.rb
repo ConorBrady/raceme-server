@@ -11,6 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20140202192511) do
+
+  create_table "races", :id => false, :force => true do |t|
+    t.datetime "start_time"
+    t.decimal  "distance"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "user_id"
+    t.string   "uuid", primary: true
+  end
+
+  create_table "users", :id => false, :force => true do |t|
+    t.string   "email"
+    t.string   "name"
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "uuid", primary: true
+  end
 
 end
