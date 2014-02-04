@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140202192511) do
+ActiveRecord::Schema.define(:version => 20140204173537) do
 
   create_table "races", :id => false, :force => true do |t|
     t.datetime "start_time"
@@ -19,7 +19,29 @@ ActiveRecord::Schema.define(:version => 20140202192511) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "user_id"
-    t.string   "uuid", primary: true
+    t.string   "uuid"
+  end
+
+  create_table "user_race_events", :id => false, :force => true do |t|
+    t.string   "uuid"
+    t.decimal  "longitude"
+    t.decimal  "latitude"
+    t.decimal  "altitude"
+    t.decimal  "horizontal_accuracy"
+    t.decimal  "vertical_accuracy"
+    t.decimal  "steps"
+    t.string   "last_event_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "user_race_id"
+  end
+
+  create_table "user_races", :id => false, :force => true do |t|
+    t.string   "race_id"
+    t.string   "user_id"
+    t.string   "uuid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :id => false, :force => true do |t|
@@ -28,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20140202192511) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.string   "uuid", primary: true
+    t.string   "uuid"
   end
 
 end

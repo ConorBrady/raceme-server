@@ -33,35 +33,12 @@ class RacesController < ApplicationController
 
   	def create
 
-  		unless params.keys.include? "start_time"
-  			render status: :bad_request, json: { message: "start time must be provided"}
-  			return
-  		end
-
-  		unless params.keys.include? "distance"
-  			render status: :bad_request, json: { message: "distance must be provided"}
-  			return
-  		end
-
-  		begin 
-  			start_time = DateTime.iso8601(params[:start_time])
-  			distance = params[:distance].to_f
-  		rescue 
-  			render status: :bad_request, json: { message: "parameter parse error" }
-  			return
-  		end
-
-  		unless start_time > Time.now
-  			render status: :bad_request, json: { message: "race start time is before current time"}
-  			return
-  		end
-
-  		unless distance > 0
-  			render status: :bad_request, json: { message: "distance must be a positive number" }
-  			return
-  		end
-
-  		@race = @current_user.races.create( start_time: start_time, distance: distance )
+  		@race = @current_user.races.create( params.slice(:start_time, :distance) )
+     
+      if @race.invalid?
+        render json: @race.errors.messages, status: :bad_request
+        return
+      end
 
   		respond_to do |format|
   			format.json { render json: @race.as_json(include: { user: { only: [ :name , :uuid ] } }, 
