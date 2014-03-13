@@ -13,16 +13,16 @@ class User < ActiveRecord::Base
 
 	before_create { self.uuid = SecureRandom.uuid }
 
-  before_save   { self.email = email.downcase }
+  	before_save   { self.email = email.downcase }
 
 	validates :name, 
-				presence: 		true, 
-				format: 		{ with: VALID_NAME_REGEX }
+					presence: 		true, 
+					format: 		{ with: VALID_NAME_REGEX }
 	
 	validates :email, 		
 				    presence:   	true,
-            format:     	{ with: VALID_EMAIL_REGEX },
-            uniqueness: 	{ case_sensitive: false }
+            		format:     	{ with: VALID_EMAIL_REGEX },
+            		uniqueness: 	{ case_sensitive: false }
 	
 	validates :password, 	
 				    presence: 		true,
