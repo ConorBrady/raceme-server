@@ -6,8 +6,14 @@ class UserRaceEvent < ActiveRecord::Base
 
 	has_one :race, through: :user_race
 	has_one :user, through: :user_race
+	has_one :leaderboard
 
-	before_create { self.uuid = SecureRandom.uuid }
+	before_create do 
+		self.uuid = SecureRandom.uuid 
+		unless self.last_event.nil?
+			
+		end
+	end
 
 	belongs_to :last_event, class_name: "UserRaceEvent", foreign_key: :last_event_id
 	
