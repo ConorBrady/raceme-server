@@ -7,6 +7,8 @@ class UserRace < ActiveRecord::Base
 
 	has_many :user_race_events
 
+	has_many :leaderboard, through: :user_race_events
+
 	validates_presence_of :user
 	validates_presence_of :race
 
