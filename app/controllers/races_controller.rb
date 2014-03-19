@@ -17,24 +17,43 @@ class RacesController < ApplicationController
 		@races = Race.where("start_time > ?",starting_after).limit(limit)
 
     respond_to do |format|
-      format.json { render json: @races.as_json(include: { user: { only: [ :name , :uuid ] } }, 
-      except: [ :user_id, :updated_at, :created_at ] ) }
+      format.json { render json: @races.as_json(
+                                                only: [ :distance, :start_time, :uuid ],
+                                                include: 
+                                                { 
+                                                    user: 
+                                                    { 
+                                                        only: [ :name , :uuid ] 
+                                                    } 
+                                                } ) } 
+     
     end  			
   end
 
   def show
     @race = Race.find(params[:id])
-    if params.keys.include? "leaderboard" and ["1","true"].include? params[:leaderboard]
-      respond_to do |format|
-        format.json { render json: @race.as_json(include: { user: { only: [ :name , :uuid ] } }, 
-          except: [ :user_id, :updated_at, :created_at ] ) }
-      end   
-    else
-      respond_to do |format|
-        format.json { render json: @race.as_json(include: { user: { only: [ :name , :uuid ] } }, 
-        except: [ :user_id, :updated_at, :created_at ] ) }
-      end
-    end
+    respond_to do |format|
+      format.json { render json: @race.as_json(
+                                              only: [ :distance, :start_time, :uuid ],
+                                              include: 
+                                              { 
+                                                  user: 
+                                                  { 
+                                                      only: [ :name , :uuid ] 
+                                                  }, 
+                                                  leaderboard: 
+                                                  { 
+                                                      only: [ :created_at, :distance_run, :address ], 
+                                                      include: 
+                                                      { 
+                                                          user: 
+                                                          { 
+                                                            only: [ :name, :uuid ] 
+                                                          } 
+                                                      } 
+                                                  } 
+                                              } ) }
+    end   
   end
 
   def create
@@ -47,8 +66,15 @@ class RacesController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: @race.as_json(include: { user: { only: [ :name , :uuid ] }, leaderboard:{}}, 
-        except: [ :user_id, :updated_at, :created_at ] ) }
+      format.json { render json: @race.as_json(
+                                                only: [ :distance, :start_time, :uuid ],
+                                                include: 
+                                                { 
+                                                    user: 
+                                                    { 
+                                                        only: [ :name , :uuid ] 
+                                                    } 
+                                                } ) } 
     end
   end
 end

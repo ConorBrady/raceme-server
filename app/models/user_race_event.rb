@@ -8,10 +8,18 @@ class UserRaceEvent < ActiveRecord::Base
 	has_one :user, through: :user_race
 	has_one :leaderboard
 
+	reverse_geocoded_by :longitude, :latitude
+
 	before_create do 
 		self.uuid = SecureRandom.uuid 
-		unless self.last_event.nil?
-			
+	end
+
+	after_create do
+		if self.last_event.nil? # for the first one
+			Leaderboard.create(user_race_event: self, distance_run: 0)
+		else
+			Leaderboard.create(user_race_event: self, distance_run: self.last_event.leaderboard.distance_run + self.last_event.distance_to(self) )
+			self.last_event.leaderboard.destroy
 		end
 	end
 
@@ -64,4 +72,7 @@ class UserRaceEvent < ActiveRecord::Base
 				},
 				presence: true
 
+	def location
+
+	end
 end
