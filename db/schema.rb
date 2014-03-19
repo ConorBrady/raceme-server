@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140204173537) do
+ActiveRecord::Schema.define(:version => 20140311183328) do
+
+  create_table "leaderboard", :id => false, :force => true do |t|
+    t.string  "user_race_id"
+    t.decimal "distance"
+    t.string  "latest_event_id"
+  end
+
+  create_table "leaderboards", :id => false, :force => true do |t|
+    t.string   "user_race_event_id"
+    t.decimal  "distance_run"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "races", :id => false, :force => true do |t|
     t.datetime "start_time"

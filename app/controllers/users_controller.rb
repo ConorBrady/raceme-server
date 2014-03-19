@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
 	def index
 		respond_to do |format|
-			format.json { render json: @current_user.as_json( include: [ :races, :user_race_events ]) }
+			format.json { render json: @current_user.as_json( except: :password_digest ) }
 		end
 	end
 
@@ -15,8 +15,14 @@ class UsersController < ApplicationController
 							password: params[:password],
 							password_confirmation: params[:password_confirmation])
 		if @user.invalid?
-			render json: @user.errors.messages, status: :bad_request
-			return
+
+			if @user.errors.keys.include? :email and @user.errors[:email].include? "has already been taken"
+				render json: @user.errors.messages, status: :conflict
+				return
+			else
+				render json: @user.errors.messages, status: :bad_request
+				return
+			end
 		end
 
 		respond_to do |format|
