@@ -1,4 +1,10 @@
 RacemeServer::Application.routes.draw do
+
+  resources :races
+  resources :users
+  resources :user_race_events
+  resources :user_races
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
