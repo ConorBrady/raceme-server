@@ -8,6 +8,8 @@ class Race < ActiveRecord::Base
 
 	has_many :user_race, dependent: :delete_all
 
+  has_many :leaderboard, through: :user_race
+
   attr_accessible :distance, :start_time
 
   validates :distance,
