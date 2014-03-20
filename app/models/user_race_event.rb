@@ -8,7 +8,7 @@ class UserRaceEvent < ActiveRecord::Base
 	has_one :user, through: :user_race
 	has_one :leaderboard
 
-	reverse_geocoded_by :longitude, :latitude
+	reverse_geocoded_by :latitude, :longitude
 
 	before_create do 
 		self.uuid = SecureRandom.uuid 
