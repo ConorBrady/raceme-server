@@ -7,7 +7,9 @@ class UserRacesController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render json: user_race }
+			format.json { render json: user_race.as_json(
+															only: [ :uuid ]
+														) }
 		end
 	end
 end
