@@ -13,11 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20140311183328) do
 
-  create_table "leaderboard", :id => false, :force => true do |t|
-    t.string  "user_race_id"
-    t.decimal "distance"
-    t.string  "latest_event_id"
-  end
 
   create_table "leaderboards", :id => false, :force => true do |t|
     t.string   "user_race_event_id"
