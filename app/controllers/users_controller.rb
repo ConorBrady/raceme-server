@@ -4,29 +4,33 @@ class UsersController < ApplicationController
 
 	def index
 		respond_to do |format|
-			format.json { render json: @current_user.as_json( except: :password_digest ) }
+			format.json { render json: @current_user.as_json( 
+															only: [ :name, :email, :uuid ]
+															) }
 		end
 	end
 
 	def create		
 
-		@user = User.create(name: params[:name],
+		user = User.create(name: params[:name],
 							email: params[:email],
 							password: params[:password],
 							password_confirmation: params[:password_confirmation])
-		if @user.invalid?
+		if user.invalid?
 
-			if @user.errors.keys.include? :email and @user.errors[:email].include? "has already been taken"
-				render json: @user.errors.messages, status: :conflict
+			if user.errors.keys.include? :email and @user.errors[:email].include? "has already been taken"
+				render json: user.errors.messages, status: :conflict
 				return
 			else
-				render json: @user.errors.messages, status: :bad_request
+				render json: user.errors.messages, status: :bad_request
 				return
 			end
 		end
 
 		respond_to do |format|
-			format.json { render json: @user }
+			format.json { render json: user.as_json(
+													only: [ :name, :email, :uuid ]
+													) }
 		end
 	end
 end
