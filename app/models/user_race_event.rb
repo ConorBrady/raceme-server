@@ -18,7 +18,7 @@ class UserRaceEvent < ActiveRecord::Base
 		if self.last_event.nil? # for the first one
 			Leaderboard.create(user_race_event: self, distance_run: 0)
 		else
-			Leaderboard.create(user_race_event: self, distance_run: self.last_event.leaderboard.distance_run + self.last_event.distance_to(self) )
+			Leaderboard.create(user_race_event: self, distance_run: self.last_event.leaderboard.distance_run + self.last_event.distance_to( self, :km )*1000 )
 			self.last_event.leaderboard.destroy
 		end
 	end

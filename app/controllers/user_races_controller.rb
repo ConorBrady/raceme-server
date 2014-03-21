@@ -4,9 +4,9 @@ class UserRacesController < ApplicationController
 		user_race = UserRace.find(params[:id])
 
 		respond_to do |format|
-			format.json { render json: user_race.as_json(
-															only: [ :uuid ]
-														)}
+			format.json do
+				render json: user_race.as_json( only: [ :uuid ] )
+			end
 		end
 	end
 
@@ -18,9 +18,9 @@ class UserRacesController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render json: user_race.as_json(
-															only: [ :uuid ]
-														) }
+			format.json do
+			 	render json: user_race.as_json( only: [ :uuid ] ) 
+			end
 		end
 	end
 end
