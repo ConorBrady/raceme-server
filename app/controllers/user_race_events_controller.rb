@@ -15,10 +15,12 @@ class UserRaceEventsController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render json: user_race_event.as_json( 
-																only: [ :uuid ],
-																include: [ :leaderboard ]
-															  ) }
+			format.json do 
+				render json: user_race_event.as_json( 
+														only: [ :uuid ],
+														include: [ :leaderboard ]
+									     			) 
+			end
 		end
 	end
 end
