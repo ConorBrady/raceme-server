@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 							password_confirmation: params[:password_confirmation] )
 		if user.invalid?
 
-			if user.errors.keys.include? :email and @user.errors[:email].include? "has already been taken"
+			if user.errors.keys.include? :email and user.errors[:email].include? "has already been taken"
 				render json: user.errors.messages, status: :conflict
 				return
 			else
